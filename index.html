@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Rápida - COISAS 3D</title>
+    <title>Orçamento C3D</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-800 p-4 md:p-8 font-sans">
-    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6 border-t-4 border-blue-600">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Orçamento Rápido C3D</h2>
+<body class="bg-gray-100 text-gray-900 p-4 md:p-8 font-sans">
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-6 border-t-8 border-[#FF6600]">
         
-        <div class="space-y-4">
+        <!-- Cabeçalho com Logo -->
+        <div class="text-center mb-6">
+            <!-- O logotipo deve estar na mesma pasta no GitHub com o nome exato logo.png -->
+            <img src="logo.png" alt="COISAS 3D Logo" class="mx-auto h-20 object-contain mb-2 fallback-logo" onerror="this.style.display='none'; document.getElementById('logo-texto').style.display='block';">
+            <h2 id="logo-texto" class="text-3xl font-black text-black hidden">COISAS <span class="text-[#FF6600]">3D</span></h2>
+            <p class="text-sm text-gray-500 font-medium uppercase tracking-wider mt-2">Calculadora Operacional</p>
+        </div>
+        
+        <div class="space-y-5">
             <!-- Filamento -->
             <div>
-                <label class="block text-sm font-medium text-gray-700">Filamento Utilizado</label>
-                <select id="filamento" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:ring-blue-500 focus:border-blue-500">
+                <label class="block text-sm font-bold text-black mb-1">Filamento Utilizado</label>
+                <select id="filamento" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm p-3 border focus:ring-[#FF6600] focus:border-[#FF6600]">
                     <option value="0.1049">Voolt3d PLA Preto Velvet (R$ 0,10/g)</option>
-                    <option value="0.0899">Voolt3d PLA Branco Silk / 3D Lab Cores (R$ 0,09/g)</option>
+                    <option value="0.0899">Voolt3d PLA Branco Silk / 3D Lab (R$ 0,09/g)</option>
                     <option value="0.0949">Voolt3d PLA Vermelho/Azul/Laranja (R$ 0,095/g)</option>
                     <option value="0.0998">Soleyin PLA Cinza/Branco (R$ 0,10/g)</option>
                     <option value="0.1249">Multifila PLA Dual (R$ 0,12/g)</option>
@@ -26,46 +33,46 @@
 
             <!-- Peso -->
             <div>
-                <label class="block text-sm font-medium text-gray-700">Peso da Peça (gramas)</label>
-                <input type="number" id="peso" placeholder="Ex: 150" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:ring-blue-500 focus:border-blue-500">
+                <label class="block text-sm font-bold text-black mb-1">Peso da Peça (gramas)</label>
+                <input type="number" id="peso" placeholder="Ex: 150" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm p-3 border focus:ring-[#FF6600] focus:border-[#FF6600]">
             </div>
 
             <!-- Tempo de Impressão -->
             <div class="flex gap-4">
                 <div class="w-1/2">
-                    <label class="block text-sm font-medium text-gray-700">Tempo (Horas)</label>
-                    <input type="number" id="horas" placeholder="Ex: 4" value="0" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:ring-blue-500 focus:border-blue-500">
+                    <label class="block text-sm font-bold text-black mb-1">Tempo (Horas)</label>
+                    <input type="number" id="horas" placeholder="Ex: 4" value="0" min="0" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm p-3 border focus:ring-[#FF6600] focus:border-[#FF6600]">
                 </div>
                 <div class="w-1/2">
-                    <label class="block text-sm font-medium text-gray-700">Tempo (Minutos)</label>
-                    <input type="number" id="minutos" placeholder="Ex: 30" value="0" min="0" max="59" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border focus:ring-blue-500 focus:border-blue-500">
+                    <label class="block text-sm font-bold text-black mb-1">Minutos</label>
+                    <input type="number" id="minutos" placeholder="Ex: 30" value="0" min="0" max="59" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm p-3 border focus:ring-[#FF6600] focus:border-[#FF6600]">
                 </div>
             </div>
 
-            <button onclick="calcularOrcamento()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded transition duration-200 mt-4">
-                Gerar Preço
+            <button onclick="calcularOrcamento()" class="w-full bg-[#FF6600] hover:bg-[#CC5200] text-white font-black text-lg py-4 px-4 rounded-md transition duration-200 mt-2 shadow-md uppercase tracking-wide">
+                Gerar Preço de Venda
             </button>
         </div>
 
         <!-- Resultados -->
-        <div id="resultado" class="hidden mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <h3 class="text-lg font-bold text-gray-900 border-b pb-2 mb-3">Detalhamento Financeiro</h3>
-            <div class="flex justify-between text-sm mb-1">
-                <span class="text-gray-600">Custo Material:</span>
-                <span id="custoMaterial" class="font-medium text-gray-800">R$ 0,00</span>
+        <div id="resultado" class="hidden mt-8">
+            <h3 class="text-lg font-bold text-black border-b-2 border-gray-200 pb-2 mb-3">Detalhamento de Custos</h3>
+            <div class="flex justify-between text-sm mb-2">
+                <span class="text-gray-600 font-medium">Custo Material:</span>
+                <span id="custoMaterial" class="font-bold text-black">R$ 0,00</span>
             </div>
-            <div class="flex justify-between text-sm mb-1">
-                <span class="text-gray-600">Custo Máquina (R$ 1,52/h):</span>
-                <span id="custoMaquina" class="font-medium text-gray-800">R$ 0,00</span>
+            <div class="flex justify-between text-sm mb-2">
+                <span class="text-gray-600 font-medium">Custo Máquina (R$ 1,52/h):</span>
+                <span id="custoMaquina" class="font-bold text-black">R$ 0,00</span>
             </div>
-            <div class="flex justify-between text-sm mb-3">
-                <span class="text-gray-600">Custo Total de Produção:</span>
-                <span id="custoProducao" class="font-medium text-gray-800">R$ 0,00</span>
+            <div class="flex justify-between text-sm mb-4">
+                <span class="text-gray-600 font-medium">Custo Total de Produção:</span>
+                <span id="custoProducao" class="font-bold text-black">R$ 0,00</span>
             </div>
             
-            <div class="bg-blue-100 p-3 rounded-md mt-4 text-center">
-                <span class="block text-sm text-blue-800 font-semibold mb-1">Preço Sugerido (Lucro 20% + Taxas Shopee/ML)</span>
-                <span id="precoFinal" class="block text-3xl font-black text-blue-900">R$ 0,00</span>
+            <div class="bg-black p-4 rounded-lg mt-4 text-center border-l-4 border-[#FF6600] shadow-md">
+                <span class="block text-xs text-gray-300 font-bold mb-1 uppercase tracking-wide">Preço Final (Margem 20% + Taxas ML/Shopee)</span>
+                <span id="precoFinal" class="block text-4xl font-black text-[#FF6600]">R$ 0,00</span>
             </div>
         </div>
     </div>
@@ -80,11 +87,11 @@
 
             if (peso === 0 && horas === 0 && minutos === 0) return;
 
-            // Parâmetros Fixos da Planilha e Estratégia
+            // Parâmetros Fixos (Baseados na Planilha)
             const custoHoraMaquina = 1.523; 
-            const markupLucro = 1.20; // 20%
-            const taxaFixa = 1.00; // R$ 1,00
-            const taxaVariavel = 0.05; // 5%
+            const markupLucro = 1.20; // 20% de lucro líquido alvo
+            const taxaFixa = 1.00; // Taxa fixa marketplace
+            const taxaVariavel = 0.05; // 5% comissão marketplace
 
             // Cálculos Base
             const custoMaterial = peso * custoGrama;
@@ -92,7 +99,7 @@
             const custoMaquina = tempoTotalHoras * custoHoraMaquina;
             const custoProducao = custoMaterial + custoMaquina;
 
-            // Matemática Blindada para proteger a margem real de 20% contra as taxas do marketplace
+            // Fórmula blindada para garantir a margem de 20% após os descontos
             const precoFinal = ((custoProducao * markupLucro) + taxaFixa) / (1 - taxaVariavel);
 
             // Atualização da Interface
