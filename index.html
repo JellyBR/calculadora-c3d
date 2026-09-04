@@ -20,18 +20,20 @@
             <!-- Peso -->
             <div>
                 <label class="block text-sm font-bold text-black mb-1">Peso da Peça (gramas)</label>
-                <input type="number" id="peso" placeholder="Ex: 150" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm p-3 text-lg border focus:ring-[#FF6600] focus:border-[#FF6600]">
+                <input type="number" id="peso" step="any" placeholder="Ex: 150" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm p-3 text-lg border focus:ring-[#FF6600] focus:border-[#FF6600]">
             </div>
 
             <!-- Tempo de Impressão -->
             <div class="flex gap-4">
                 <div class="w-1/2">
                     <label class="block text-sm font-bold text-black mb-1">Tempo (Horas)</label>
-                    <input type="number" id="horas" placeholder="Ex: 4" value="0" min="0" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm p-3 text-lg border focus:ring-[#FF6600] focus:border-[#FF6600]">
+                    <!-- step="any" permite decimais como 3.8 -->
+                    <input type="number" id="horas" step="any" placeholder="Ex: 3.8" value="0" min="0" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm p-3 text-lg border focus:ring-[#FF6600] focus:border-[#FF6600]">
                 </div>
                 <div class="w-1/2">
                     <label class="block text-sm font-bold text-black mb-1">Minutos</label>
-                    <input type="number" id="minutos" placeholder="Ex: 30" value="0" min="0" max="59" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm p-3 text-lg border focus:ring-[#FF6600] focus:border-[#FF6600]">
+                    <!-- Removido o max="59" para permitir entrada livre de minutos e step="any" -->
+                    <input type="number" id="minutos" step="any" placeholder="Ex: 46" value="0" min="0" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm p-3 text-lg border focus:ring-[#FF6600] focus:border-[#FF6600]">
                 </div>
             </div>
 
@@ -65,7 +67,7 @@
 
     <script>
         function calcularOrcamento() {
-            // Entradas
+            // Entradas convertidas para float (aceitando decimais corretamente)
             const peso = parseFloat(document.getElementById('peso').value) || 0;
             const horas = parseFloat(document.getElementById('horas').value) || 0;
             const minutos = parseFloat(document.getElementById('minutos').value) || 0;
@@ -73,11 +75,11 @@
             if (peso === 0 && horas === 0 && minutos === 0) return;
 
             // Parâmetros Fixos e Estratégicos
-            const custoGrama = 0.12; // Valor cravado no teto para segurança
+            const custoGrama = 0.12; 
             const custoHoraMaquina = 1.523; 
-            const markupLucro = 1.20; // 20% de lucro líquido
-            const taxaFixa = 1.00; // Taxa marketplace
-            const taxaVariavel = 0.05; // 5% comissão marketplace
+            const markupLucro = 1.20; 
+            const taxaFixa = 1.00; 
+            const taxaVariavel = 0.05; 
 
             // Cálculos Base
             const custoMaterial = peso * custoGrama;
